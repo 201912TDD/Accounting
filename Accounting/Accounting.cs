@@ -50,14 +50,13 @@ namespace Accounting
                 }
                 else
                 {
-                    int days = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
-                    var daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
-
-                    var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
-                    if (budget != null) totalBudget += (decimal) budget.Amount / daysInMonth * days;
-                    else
+                    var budget = Repo
+                                 .GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
+                    if (budget != null)
                     {
-                        totalBudget += 0;
+                        var daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+                        int days = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+                        totalBudget += budget.Amount / daysInMonth * days;
                     }
                 }
 
