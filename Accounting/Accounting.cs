@@ -59,15 +59,21 @@ namespace Accounting
             int overlappingDays;
             if (IsTheSameMonth(startDate, currentDate))
             {
-                overlappingDays = IntervalDays(startDate, budget.LastDay());
+                var overlappingStart = startDate;
+                var overlappingEnd = budget.LastDay();
+                overlappingDays = IntervalDays(overlappingStart, overlappingEnd);
             }
             else if (IsTheSameMonth(endDate, currentDate))
             {
-                overlappingDays = IntervalDays(budget.FirstDay(), endDate);
+                var overlappingStart = budget.FirstDay();
+                var overlappingEnd = endDate;
+                overlappingDays = IntervalDays(overlappingStart, overlappingEnd);
             }
             else
             {
-                overlappingDays = IntervalDays(budget.FirstDay(), budget.LastDay());
+                var overlappingStart = budget.FirstDay();
+                var overlappingEnd = budget.LastDay();
+                overlappingDays = IntervalDays(overlappingStart, overlappingEnd);
             }
 
             return overlappingDays;
