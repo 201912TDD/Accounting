@@ -33,19 +33,20 @@ namespace Accounting
                 var budget = FindBudget(currentDate);
                 if (budget != null)
                 {
+                    int overlappingDays;
                     if (IsTheSameMonth(startDate, currentDate))
                     {
-                        var overlappingDays = OverlappingDays(startDate, budget.LastDay());
+                        overlappingDays = OverlappingDays(startDate, budget.LastDay());
                         totalBudget += budget.DailyAmount() * overlappingDays;
                     }
                     else if (IsTheSameMonth(endDate, currentDate))
                     {
-                        var overlappingDays = OverlappingDays(budget.FirstDay(), endDate);
+                        overlappingDays = OverlappingDays(budget.FirstDay(), endDate);
                         totalBudget += budget.DailyAmount() * overlappingDays;
                     }
                     else
                     {
-                        int overlappingDays = OverlappingDays(budget.FirstDay(), budget.LastDay());
+                        overlappingDays = OverlappingDays(budget.FirstDay(), budget.LastDay());
                         totalBudget += budget.DailyAmount() * overlappingDays;
                     }
                 }
