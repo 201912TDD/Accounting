@@ -37,18 +37,20 @@ namespace Accounting
                     if (IsTheSameMonth(startDate, currentDate))
                     {
                         overlappingDays = OverlappingDays(startDate, budget.LastDay());
-                        totalBudget += budget.DailyAmount() * overlappingDays;
+                        //totalBudget += budget.DailyAmount() * overlappingDays;
                     }
                     else if (IsTheSameMonth(endDate, currentDate))
                     {
                         overlappingDays = OverlappingDays(budget.FirstDay(), endDate);
-                        totalBudget += budget.DailyAmount() * overlappingDays;
+                        //totalBudget += budget.DailyAmount() * overlappingDays;
                     }
                     else
                     {
                         overlappingDays = OverlappingDays(budget.FirstDay(), budget.LastDay());
-                        totalBudget += budget.DailyAmount() * overlappingDays;
+                        //totalBudget += budget.DailyAmount() * overlappingDays;
                     }
+
+                    totalBudget += budget.DailyAmount() * overlappingDays;
                 }
 
                 currentDate = currentDate.AddMonths(1);
