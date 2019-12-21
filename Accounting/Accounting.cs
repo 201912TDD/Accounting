@@ -42,14 +42,7 @@ namespace Accounting
 
             var period = new Period(startDate, endDate);
 
-            var totalBudget = 0m;
-
-            foreach (var budget in Repo.GetAll())
-            {
-                totalBudget += budget.OverlappingBudget(period);
-            }
-
-            return totalBudget;
+            return Repo.GetAll().Sum(budget => budget.OverlappingBudget(period));
         }
 
         private static int IntervalDays(DateTime overlappingStart, DateTime overlappingEnd)
