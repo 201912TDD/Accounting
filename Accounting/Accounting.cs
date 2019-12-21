@@ -41,7 +41,12 @@ namespace Accounting
                 }
                 else if (IsTheSameMonth(endDate, currentDate))
                 {
-                    totalBudget += BudgetOfMonth(endDate, endDate.Day);
+                    var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == endDate.ToString("yyyyMM"));
+                    if (budget != null)
+                    {
+                        var daysInMonth = DateTime.DaysInMonth(endDate.Year, endDate.Month);
+                        totalBudget += budget.Amount / daysInMonth * endDate.Day;
+                    }
                 }
                 else
                 {
