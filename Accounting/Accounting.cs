@@ -33,8 +33,10 @@ namespace Accounting
 
             while (true)
             {
-                if (currentDate > endDate)
+                var breakCondition = currentDate > endDate;
+                if (breakCondition)
                     break;
+
                 if (i == 0)
                 {
                     totalBudget += BudgetOfMonth(startDate,
