@@ -33,7 +33,7 @@ namespace Accounting
 
             while (currentDate <= endDate)
             {
-                var isFirstMonth = currentDate.Year == startDate.Year && currentDate.Month == startDate.Month;
+                var isFirstMonth = IsTheSameMonth(startDate, currentDate);
                 if (isFirstMonth)
                 {
                     totalBudget += BudgetOfMonth(startDate,
@@ -55,6 +55,11 @@ namespace Accounting
             }
 
             return totalBudget;
+        }
+
+        private static bool IsTheSameMonth(DateTime x, DateTime y)
+        {
+            return y.Year == x.Year && y.Month == x.Month;
         }
 
         private static int OverlappingDays(DateTime overlappingStart, DateTime overlappingEnd)
