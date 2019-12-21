@@ -56,31 +56,25 @@ namespace Accounting
 
         private static int OverlappingDays(DateTime startDate, DateTime endDate, DateTime currentDate, Budget budget)
         {
-            int overlappingDays;
             DateTime overlappingStart;
             DateTime overlappingEnd;
             if (IsTheSameMonth(startDate, currentDate))
             {
                 overlappingStart = startDate;
                 overlappingEnd = budget.LastDay();
-                //overlappingDays = IntervalDays(overlappingStart, overlappingEnd);
             }
             else if (IsTheSameMonth(endDate, currentDate))
             {
                 overlappingStart = budget.FirstDay();
                 overlappingEnd = endDate;
-                //overlappingDays = IntervalDays(overlappingStart, overlappingEnd);
             }
             else
             {
                 overlappingStart = budget.FirstDay();
                 overlappingEnd = budget.LastDay();
-                //overlappingDays = IntervalDays(overlappingStart, overlappingEnd);
             }
 
-            overlappingDays = IntervalDays(overlappingStart, overlappingEnd);
-
-            return overlappingDays;
+            return IntervalDays(overlappingStart, overlappingEnd);
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
