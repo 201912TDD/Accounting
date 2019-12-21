@@ -35,5 +35,10 @@ namespace Accounting
         {
             return new Period(FirstDay(), LastDay());
         }
+
+        public decimal OverlappingBudget(Period period)
+        {
+            return DailyAmount() * period.OverlappingDays(CreatePeriod());
+        }
     }
 }
