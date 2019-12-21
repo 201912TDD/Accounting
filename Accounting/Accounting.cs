@@ -49,19 +49,6 @@ namespace Accounting
                 totalBudget += budget.OverlappingBudget(period);
             }
 
-            //var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
-
-            //while (currentDate <= endDate)
-            //{
-            //    var budget = FindBudget(currentDate);
-            //    if (budget != null)
-            //    {
-            //        totalBudget += budget.OverlappingBudget(period);
-            //    }
-
-            //    currentDate = currentDate.AddMonths(1);
-            //}
-
             return totalBudget;
         }
 
