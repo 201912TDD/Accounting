@@ -35,20 +35,22 @@ namespace Accounting
             if (startDate > endDate)
                 return 0;
 
+            var period = new Period(startDate, endDate);
+
             var totalBudget = 0m;
             if (IsTheSameMonth(startDate, endDate))
             {
                 var budget = FindBudget(startDate);
                 if (budget != null)
                 {
-                    var overlappingDays = IntervalDays(startDate, endDate);
-                    return budget.DailyAmount() * overlappingDays;
+                    //var overlappingDays = IntervalDays(startDate, endDate);
+                    //return budget.DailyAmount() * overlappingDays;
+                    return budget.OverlappingBudget(period);
                 }
             }
 
             var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
 
-            var period = new Period(startDate, endDate);
             while (currentDate <= endDate)
             {
                 var budget = FindBudget(currentDate);
