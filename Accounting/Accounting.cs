@@ -22,7 +22,7 @@ namespace Accounting
                 if (budget != null)
                 {
                     var overlappingDays = endDate.Subtract(startDate).Days + 1;
-                    var daysInBudget = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+                    var daysInBudget = DaysInBudget(startDate, budget);
 
                     return budget.Amount / daysInBudget * overlappingDays;
                 }
@@ -57,6 +57,15 @@ namespace Accounting
             }
 
             return totalBudget;
+        }
+
+        private static int DaysInBudget(DateTime startDate, Budget budget)
+        {
+            var firstDayOfBudget = DateTime.ParseExact(budget.YearMonth + "01", "yyyyMMdd", null);
+            var daysInBudget = DateTime.DaysInMonth(firstDayOfBudget.Year, firstDayOfBudget.Month);
+            //var daysInBudget = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+
+            return daysInBudget;
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
