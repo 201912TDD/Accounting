@@ -44,9 +44,8 @@ namespace Accounting
                     var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == endDate.ToString("yyyyMM"));
                     if (budget != null)
                     {
-                        var daysInMonth = DateTime.DaysInMonth(endDate.Year, endDate.Month);
-                        totalBudget += budget.DailyAmount() * endDate.Day;
-                        //totalBudget += budget.Amount / daysInMonth * endDate.Day;
+                        var overlappingDays = endDate.Day;
+                        totalBudget += budget.DailyAmount() * overlappingDays;
                     }
                 }
                 else
