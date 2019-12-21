@@ -31,11 +31,10 @@ namespace Accounting
 
             var i = 0;
 
-            while (true)
+            while (currentDate <= endDate)
             {
-                var breakCondition = currentDate > endDate;
-                if (breakCondition)
-                    break;
+                //if (currentDate > endDate)
+                //    break;
 
                 if (i == 0)
                 {
