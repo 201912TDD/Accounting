@@ -48,12 +48,12 @@ namespace Accounting
 
             var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
 
+            var period = new Period(startDate, endDate);
             while (currentDate <= endDate)
             {
                 var budget = FindBudget(currentDate);
                 if (budget != null)
                 {
-                    var period = new Period(startDate, endDate);
                     totalBudget += budget.DailyAmount() * period.OverlappingDays(budget.CreatePeriod());
                 }
 
