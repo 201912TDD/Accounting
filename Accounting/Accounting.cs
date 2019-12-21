@@ -30,9 +30,9 @@ namespace Accounting
 
             while (currentDate <= endDate)
             {
+                var budget = FindBudget(currentDate);
                 if (IsTheSameMonth(startDate, currentDate))
                 {
-                    var budget = FindBudget(currentDate);
                     if (budget != null)
                     {
                         var overlappingDays = OverlappingDays(startDate, budget.LastDay());
@@ -41,7 +41,7 @@ namespace Accounting
                 }
                 else if (IsTheSameMonth(endDate, currentDate))
                 {
-                    var budget = FindBudget(currentDate);
+                    //var budget = FindBudget(currentDate);
                     if (budget != null)
                     {
                         var overlappingDays = OverlappingDays(budget.FirstDay(), endDate);
@@ -50,7 +50,7 @@ namespace Accounting
                 }
                 else
                 {
-                    var budget = FindBudget(currentDate);
+                    //var budget = FindBudget(currentDate);
                     if (budget != null)
                     {
                         int overlappingDays = OverlappingDays(budget.FirstDay(), budget.LastDay());
