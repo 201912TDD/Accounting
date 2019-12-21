@@ -45,7 +45,7 @@ namespace Accounting
                 var budget = FindBudget(currentDate);
                 if (budget != null)
                 {
-                    var overlappingDays = OverlappingDays(new Period(startDate, endDate), currentDate, budget);
+                    var overlappingDays = OverlappingDays(new Period(startDate, endDate), budget);
 
                     totalBudget += budget.DailyAmount() * overlappingDays;
                 }
@@ -66,25 +66,10 @@ namespace Accounting
             return x.ToString("yyyyMM") == y.ToString("yyyyMM");
         }
 
-        private static int OverlappingDays(Period period, DateTime currentDate, Budget budget)
+        private static int OverlappingDays(Period period, Budget budget)
         {
             DateTime overlappingStart = period.StartDate > budget.FirstDay() ? period.StartDate : budget.FirstDay();
             DateTime overlappingEnd = period.EndDate < budget.LastDay() ? period.EndDate : budget.LastDay();
-            //if (IsTheSameMonth(period.StartDate, currentDate))
-            //{
-            //    overlappingStart = period.StartDate;
-            //    overlappingEnd = budget.LastDay();
-            //}
-            //else if (IsTheSameMonth(period.EndDate, currentDate))
-            //{
-            //    overlappingStart = budget.FirstDay();
-            //    overlappingEnd = period.EndDate;
-            //}
-            //else
-            //{
-            //    overlappingStart = budget.FirstDay();
-            //    overlappingEnd = budget.LastDay();
-            //}
 
             return IntervalDays(overlappingStart, overlappingEnd);
         }
