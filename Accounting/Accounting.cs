@@ -19,8 +19,11 @@ namespace Accounting
 
         public int OverlappingDays(Budget budget)
         {
-            var overlappingStart = StartDate > budget.FirstDay() ? StartDate : budget.FirstDay();
-            var overlappingEnd = EndDate < budget.LastDay() ? EndDate : budget.LastDay();
+            var firstDay = budget.FirstDay();
+            var lastDay = budget.LastDay();
+
+            var overlappingStart = StartDate > firstDay ? StartDate : firstDay;
+            var overlappingEnd = EndDate < lastDay ? EndDate : lastDay;
 
             return overlappingEnd.Subtract(overlappingStart).Days + 1;
         }
