@@ -16,13 +16,10 @@ namespace Accounting
                 return 0;
 
             var budget = 0m;
-            if (startDate.Year == endDate.Year)
+            if (startDate.Year == endDate.Year && startDate.Month == endDate.Month)
             {
-                if (startDate.Month == endDate.Month)
-                {
-                    var days = endDate.Subtract(startDate).Days + 1;
-                    return BudgetOfMonth(startDate, days);
-                }
+                var days = endDate.Subtract(startDate).Days + 1;
+                return BudgetOfMonth(startDate, days);
             }
 
             var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
