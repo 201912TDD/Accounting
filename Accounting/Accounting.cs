@@ -68,10 +68,10 @@ namespace Accounting
 
         private static int OverlappingDays(Period period, Budget budget)
         {
-            DateTime overlappingStart = period.StartDate > budget.FirstDay() ? period.StartDate : budget.FirstDay();
-            DateTime overlappingEnd = period.EndDate < budget.LastDay() ? period.EndDate : budget.LastDay();
+            var overlappingStart = period.StartDate > budget.FirstDay() ? period.StartDate : budget.FirstDay();
+            var overlappingEnd = period.EndDate < budget.LastDay() ? period.EndDate : budget.LastDay();
 
-            return IntervalDays(overlappingStart, overlappingEnd);
+            return overlappingEnd.Subtract(overlappingStart).Days + 1;
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
