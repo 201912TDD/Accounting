@@ -45,7 +45,8 @@ namespace Accounting
                     if (budget != null)
                     {
                         var daysInMonth = DateTime.DaysInMonth(endDate.Year, endDate.Month);
-                        totalBudget += budget.Amount / daysInMonth * endDate.Day;
+                        totalBudget += budget.DailyAmount() * endDate.Day;
+                        //totalBudget += budget.Amount / daysInMonth * endDate.Day;
                     }
                 }
                 else
