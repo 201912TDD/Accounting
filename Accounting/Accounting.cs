@@ -33,14 +33,14 @@ namespace Accounting
 
             while (currentDate <= endDate)
             {
-                var isFirstMonth = IsTheSameMonth(startDate, currentDate);
-                if (isFirstMonth)
+                if (IsTheSameMonth(startDate, currentDate))
                 {
                     totalBudget += BudgetOfMonth(startDate,
                                                  DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day +
                                                  1);
                 }
-                else if (currentDate.Year == endDate.Year && currentDate.Month == endDate.Month)
+                else if (IsTheSameMonth(endDate, currentDate))
+                    //else if (currentDate.Year == endDate.Year && currentDate.Month == endDate.Month)
                 {
                     totalBudget += BudgetOfMonth(endDate, endDate.Day);
                 }
