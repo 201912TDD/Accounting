@@ -21,7 +21,7 @@ namespace Accounting
                 var budget = Repo.GetAll().FirstOrDefault(b => b.YearMonth == startDate.ToString("yyyyMM"));
                 if (budget != null)
                 {
-                    var overlappingDays = endDate.Subtract(startDate).Days + 1;
+                    var overlappingDays = OverlappingDays(startDate, endDate);
 
                     return budget.DailyAmount() * overlappingDays;
                 }
@@ -56,6 +56,12 @@ namespace Accounting
             }
 
             return totalBudget;
+        }
+
+        private static int OverlappingDays(DateTime startDate, DateTime endDate)
+        {
+            var overlappingDays = endDate.Subtract(startDate).Days + 1;
+            return overlappingDays;
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
