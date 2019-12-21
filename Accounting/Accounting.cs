@@ -54,9 +54,9 @@ namespace Accounting
                                  .GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
                     if (budget != null)
                     {
-                        var daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
-                        int days = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
-                        totalBudget += budget.DailyAmount() * days;
+                        int overlappingDays = OverlappingDays(budget.FirstDay(), budget.LastDay());
+                        //int overlappingDays = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+                        totalBudget += budget.DailyAmount() * overlappingDays;
                     }
                 }
 
