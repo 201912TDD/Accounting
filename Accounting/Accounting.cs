@@ -33,10 +33,8 @@ namespace Accounting
 
             while (currentDate <= endDate)
             {
-                //if (currentDate > endDate)
-                //    break;
-
-                if (i == 0)
+                var isFirstMonth = i == 0;
+                if (isFirstMonth)
                 {
                     totalBudget += BudgetOfMonth(startDate,
                                                  DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day +
