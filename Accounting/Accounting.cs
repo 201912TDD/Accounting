@@ -6,6 +6,18 @@ using NUnit.Framework;
 
 namespace Accounting
 {
+    internal class Period
+    {
+        public Period(DateTime startDate, DateTime endDate)
+        {
+            StartDate = startDate;
+            EndDate = endDate;
+        }
+
+        public DateTime StartDate { get; private set; }
+        public DateTime EndDate { get; private set; }
+    }
+
     class Accounting
     {
         public IBudgetRepo Repo { get; set; }
@@ -33,7 +45,7 @@ namespace Accounting
                 var budget = FindBudget(currentDate);
                 if (budget != null)
                 {
-                    var overlappingDays = OverlappingDays(startDate, endDate, currentDate, budget);
+                    var overlappingDays = OverlappingDays(new Period(startDate, endDate), currentDate, budget);
 
                     totalBudget += budget.DailyAmount() * overlappingDays;
                 }
@@ -54,19 +66,19 @@ namespace Accounting
             return x.ToString("yyyyMM") == y.ToString("yyyyMM");
         }
 
-        private static int OverlappingDays(DateTime startDate, DateTime endDate, DateTime currentDate, Budget budget)
+        private static int OverlappingDays(Period period, DateTime currentDate, Budget budget)
         {
             DateTime overlappingStart;
             DateTime overlappingEnd;
-            if (IsTheSameMonth(startDate, currentDate))
+            if (IsTheSameMonth(period.StartDate, currentDate))
             {
-                overlappingStart = startDate;
+                overlappingStart = period.StartDate;
                 overlappingEnd = budget.LastDay();
             }
-            else if (IsTheSameMonth(endDate, currentDate))
+            else if (IsTheSameMonth(period.EndDate, currentDate))
             {
                 overlappingStart = budget.FirstDay();
-                overlappingEnd = endDate;
+                overlappingEnd = period.EndDate;
             }
             else
             {
