@@ -15,5 +15,10 @@ namespace Accounting
 
             return DateTime.DaysInMonth(firstDayOfBudget.Year, firstDayOfBudget.Month);
         }
+
+        public decimal DailyAmount()
+        {
+            return Amount / DaysInBudget();
+        }
     }
 }
