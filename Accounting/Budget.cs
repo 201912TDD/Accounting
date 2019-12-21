@@ -25,7 +25,7 @@ namespace Accounting
             return DateTime.ParseExact(YearMonth + lastDay, "yyyyMMdd", null);
         }
 
-        private DateTime FirstDay()
+        public DateTime FirstDay()
         {
             var firstDayOfBudget = DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
             return firstDayOfBudget;
