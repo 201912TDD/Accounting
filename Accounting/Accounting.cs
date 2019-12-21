@@ -18,7 +18,7 @@ namespace Accounting
             var totalBudget = 0m;
             if (IsTheSameMonth(startDate, endDate))
             {
-                var budget = Repo.GetAll().FirstOrDefault(b => b.YearMonth == startDate.ToString("yyyyMM"));
+                var budget = FindBudget(startDate);
                 if (budget != null)
                 {
                     var overlappingDays = OverlappingDays(startDate, endDate);
