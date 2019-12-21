@@ -21,7 +21,7 @@ namespace Accounting
                 var budget = FindBudget(startDate);
                 if (budget != null)
                 {
-                    var overlappingDays = OverlappingDays(startDate, endDate);
+                    var overlappingDays = IntervalDays(startDate, endDate);
                     return budget.DailyAmount() * overlappingDays;
                 }
             }
@@ -36,15 +36,15 @@ namespace Accounting
                     int overlappingDays;
                     if (IsTheSameMonth(startDate, currentDate))
                     {
-                        overlappingDays = OverlappingDays(startDate, budget.LastDay());
+                        overlappingDays = IntervalDays(startDate, budget.LastDay());
                     }
                     else if (IsTheSameMonth(endDate, currentDate))
                     {
-                        overlappingDays = OverlappingDays(budget.FirstDay(), endDate);
+                        overlappingDays = IntervalDays(budget.FirstDay(), endDate);
                     }
                     else
                     {
-                        overlappingDays = OverlappingDays(budget.FirstDay(), budget.LastDay());
+                        overlappingDays = IntervalDays(budget.FirstDay(), budget.LastDay());
                     }
 
                     totalBudget += budget.DailyAmount() * overlappingDays;
@@ -56,14 +56,14 @@ namespace Accounting
             return totalBudget;
         }
 
+        private static int IntervalDays(DateTime overlappingStart, DateTime overlappingEnd)
+        {
+            return overlappingEnd.Subtract(overlappingStart).Days + 1;
+        }
+
         private static bool IsTheSameMonth(DateTime x, DateTime y)
         {
             return x.ToString("yyyyMM") == y.ToString("yyyyMM");
-        }
-
-        private static int OverlappingDays(DateTime overlappingStart, DateTime overlappingEnd)
-        {
-            return overlappingEnd.Subtract(overlappingStart).Days + 1;
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
