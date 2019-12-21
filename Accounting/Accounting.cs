@@ -22,9 +22,8 @@ namespace Accounting
                 if (budget != null)
                 {
                     var overlappingDays = endDate.Subtract(startDate).Days + 1;
-                    var daysInBudget = budget.DaysInBudget();
 
-                    return budget.Amount / daysInBudget * overlappingDays;
+                    return DailyAmount(budget) * overlappingDays;
                 }
             }
 
@@ -57,6 +56,11 @@ namespace Accounting
             }
 
             return totalBudget;
+        }
+
+        private static decimal DailyAmount(Budget budget)
+        {
+            return budget.Amount / budget.DaysInBudget();
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
