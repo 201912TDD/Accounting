@@ -18,11 +18,14 @@ namespace Accounting
             var totalBudget = 0m;
             if (startDate.Year == endDate.Year && startDate.Month == endDate.Month)
             {
-                var overlappingDays = endDate.Subtract(startDate).Days + 1;
-                var daysInBudget = DateTime.DaysInMonth(startDate.Year, startDate.Month);
-
                 var budget = Repo.GetAll().FirstOrDefault(b => b.YearMonth == startDate.ToString("yyyyMM"));
-                return budget?.Amount / daysInBudget * overlappingDays ?? 0;
+                if (budget != null)
+                {
+                    var overlappingDays = endDate.Subtract(startDate).Days + 1;
+                    var daysInBudget = DateTime.DaysInMonth(startDate.Year, startDate.Month);
+
+                    return budget.Amount / daysInBudget * overlappingDays;
+                }
             }
 
             var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
