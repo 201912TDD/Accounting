@@ -8,6 +8,8 @@ namespace Accounting
 {
     class Accounting
     {
+        public IBudgetRepo Repo { get; set; }
+
         public decimal QueryBudget(DateTime startDate, DateTime endDate)
         {
             if (startDate > endDate)
@@ -60,7 +62,5 @@ namespace Accounting
             if (budget != null) return (decimal) budget.Amount / daysInMonth * days;
             return 0;
         }
-
-        public IBudgetRepo Repo { get; set; }
     }
 }
