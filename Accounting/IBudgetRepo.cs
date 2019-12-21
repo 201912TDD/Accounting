@@ -4,9 +4,8 @@ using System.Text;
 
 namespace Accounting
 {
-    interface IBudgetRepo
+    public interface IBudgetRepo
     {
-        List<Budget>GetAll();
-
+        List<Budget> GetAll();
     }
 }
