@@ -59,7 +59,7 @@ namespace Accounting
 
         private static bool IsTheSameMonth(DateTime x, DateTime y)
         {
-            return y.Year == x.Year && y.Month == x.Month;
+            return x.ToString("yyyyMM") == y.ToString("yyyyMM");
         }
 
         private static int OverlappingDays(DateTime overlappingStart, DateTime overlappingEnd)
