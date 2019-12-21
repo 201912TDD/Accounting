@@ -6,7 +6,7 @@ using NUnit.Framework;
 
 namespace Accounting
 {
-    internal class Period
+    public class Period
     {
         public Period(DateTime startDate, DateTime endDate)
         {
@@ -53,8 +53,7 @@ namespace Accounting
                 var budget = FindBudget(currentDate);
                 if (budget != null)
                 {
-                    var overlappingDays =
-                        new Period(startDate, endDate).OverlappingDays(CreatePeriod(budget));
+                    var overlappingDays = new Period(startDate, endDate).OverlappingDays(budget.CreatePeriod());
 
                     totalBudget += budget.DailyAmount() * overlappingDays;
                 }
@@ -63,11 +62,6 @@ namespace Accounting
             }
 
             return totalBudget;
-        }
-
-        private static Period CreatePeriod(Budget budget)
-        {
-            return new Period(budget.FirstDay(), budget.LastDay());
         }
 
         private static int IntervalDays(DateTime overlappingStart, DateTime overlappingEnd)

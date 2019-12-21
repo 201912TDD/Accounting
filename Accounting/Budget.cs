@@ -30,5 +30,10 @@ namespace Accounting
             var firstDayOfBudget = DateTime.ParseExact(YearMonth + "01", "yyyyMMdd", null);
             return firstDayOfBudget;
         }
+
+        public Period CreatePeriod()
+        {
+            return new Period(FirstDay(), LastDay());
+        }
     }
 }
