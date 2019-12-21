@@ -16,7 +16,7 @@ namespace Accounting
                 return 0;
 
             var totalBudget = 0m;
-            if (startDate.Year == endDate.Year && startDate.Month == endDate.Month)
+            if (IsTheSameMonth(startDate, endDate))
             {
                 var budget = Repo.GetAll().FirstOrDefault(b => b.YearMonth == startDate.ToString("yyyyMM"));
                 if (budget != null)
@@ -29,18 +29,15 @@ namespace Accounting
 
             var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
 
-            //var i = 0;
-
             while (currentDate <= endDate)
             {
                 if (IsTheSameMonth(startDate, currentDate))
                 {
-                    totalBudget += BudgetOfMonth(startDate,
-                                                 DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day +
-                                                 1);
+                    totalBudget +=
+                        BudgetOfMonth(
+                            startDate, DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day + 1);
                 }
                 else if (IsTheSameMonth(endDate, currentDate))
-                    //else if (currentDate.Year == endDate.Year && currentDate.Month == endDate.Month)
                 {
                     totalBudget += BudgetOfMonth(endDate, endDate.Day);
                 }
@@ -51,7 +48,6 @@ namespace Accounting
                 }
 
                 currentDate = currentDate.AddMonths(1);
-                //i++;
             }
 
             return totalBudget;
