@@ -33,13 +33,11 @@ namespace Accounting
             {
                 if (IsTheSameMonth(startDate, currentDate))
                 {
-                    int days = DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day + 1;
-                    var daysInMonth = DateTime.DaysInMonth(startDate.Year, startDate.Month);
-
                     var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == startDate.ToString("yyyyMM"));
                     if (budget != null)
                     {
-                        totalBudget += (decimal) budget.Amount / daysInMonth * days;
+                        var days = DateTime.DaysInMonth(startDate.Year, startDate.Month) - startDate.Day + 1;
+                        totalBudget += budget.DailyAmount() * days;
                     }
                 }
                 else if (IsTheSameMonth(endDate, currentDate))
