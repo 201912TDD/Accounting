@@ -56,7 +56,7 @@ namespace Accounting
                     {
                         var daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
                         int days = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
-                        totalBudget += budget.Amount / daysInMonth * days;
+                        totalBudget += budget.DailyAmount() * days;
                     }
                 }
 
