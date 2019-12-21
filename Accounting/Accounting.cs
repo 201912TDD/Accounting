@@ -50,8 +50,7 @@ namespace Accounting
                 }
                 else
                 {
-                    var budget = Repo
-                                 .GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
+                    var budget = FindBudget(currentDate);
                     if (budget != null)
                     {
                         int overlappingDays = OverlappingDays(budget.FirstDay(), budget.LastDay());
