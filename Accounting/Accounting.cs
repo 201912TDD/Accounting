@@ -33,19 +33,7 @@ namespace Accounting
                 var budget = FindBudget(currentDate);
                 if (budget != null)
                 {
-                    int overlappingDays;
-                    if (IsTheSameMonth(startDate, currentDate))
-                    {
-                        overlappingDays = IntervalDays(startDate, budget.LastDay());
-                    }
-                    else if (IsTheSameMonth(endDate, currentDate))
-                    {
-                        overlappingDays = IntervalDays(budget.FirstDay(), endDate);
-                    }
-                    else
-                    {
-                        overlappingDays = IntervalDays(budget.FirstDay(), budget.LastDay());
-                    }
+                    var overlappingDays = OverlappingDays(startDate, endDate, currentDate, budget);
 
                     totalBudget += budget.DailyAmount() * overlappingDays;
                 }
@@ -64,6 +52,25 @@ namespace Accounting
         private static bool IsTheSameMonth(DateTime x, DateTime y)
         {
             return x.ToString("yyyyMM") == y.ToString("yyyyMM");
+        }
+
+        private static int OverlappingDays(DateTime startDate, DateTime endDate, DateTime currentDate, Budget budget)
+        {
+            int overlappingDays;
+            if (IsTheSameMonth(startDate, currentDate))
+            {
+                overlappingDays = IntervalDays(startDate, budget.LastDay());
+            }
+            else if (IsTheSameMonth(endDate, currentDate))
+            {
+                overlappingDays = IntervalDays(budget.FirstDay(), endDate);
+            }
+            else
+            {
+                overlappingDays = IntervalDays(budget.FirstDay(), budget.LastDay());
+            }
+
+            return overlappingDays;
         }
 
         private decimal BudgetOfMonth(DateTime startDate, int days)
