@@ -41,7 +41,7 @@ namespace Accounting
                 }
                 else if (IsTheSameMonth(endDate, currentDate))
                 {
-                    var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == endDate.ToString("yyyyMM"));
+                    var budget = FindBudget(currentDate);
                     if (budget != null)
                     {
                         var overlappingDays = OverlappingDays(budget.FirstDay(), endDate);
@@ -55,7 +55,6 @@ namespace Accounting
                     if (budget != null)
                     {
                         int overlappingDays = OverlappingDays(budget.FirstDay(), budget.LastDay());
-                        //int overlappingDays = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
                         totalBudget += budget.DailyAmount() * overlappingDays;
                     }
                 }
