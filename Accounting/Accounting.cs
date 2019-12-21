@@ -22,6 +22,11 @@ namespace Accounting
             var overlappingStart = StartDate > another.StartDate ? StartDate : another.StartDate;
             var overlappingEnd = EndDate < another.EndDate ? EndDate : another.EndDate;
 
+            if (overlappingStart > overlappingEnd)
+            {
+                return 0;
+            }
+
             return overlappingEnd.Subtract(overlappingStart).Days + 1;
         }
     }
@@ -39,18 +44,23 @@ namespace Accounting
 
             var totalBudget = 0m;
 
-            var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
-
-            while (currentDate <= endDate)
+            foreach (var budget in Repo.GetAll())
             {
-                var budget = FindBudget(currentDate);
-                if (budget != null)
-                {
-                    totalBudget += budget.OverlappingBudget(period);
-                }
-
-                currentDate = currentDate.AddMonths(1);
+                totalBudget += budget.OverlappingBudget(period);
             }
+
+            //var currentDate = new DateTime(startDate.Year, startDate.Month, 1);
+
+            //while (currentDate <= endDate)
+            //{
+            //    var budget = FindBudget(currentDate);
+            //    if (budget != null)
+            //    {
+            //        totalBudget += budget.OverlappingBudget(period);
+            //    }
+
+            //    currentDate = currentDate.AddMonths(1);
+            //}
 
             return totalBudget;
         }
