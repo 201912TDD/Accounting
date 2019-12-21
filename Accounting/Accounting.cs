@@ -50,8 +50,15 @@ namespace Accounting
                 }
                 else
                 {
-                    totalBudget += BudgetOfMonth(currentDate,
-                                                 DateTime.DaysInMonth(currentDate.Year, currentDate.Month));
+                    int days = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+                    var daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+
+                    var budget = Repo.GetAll().FirstOrDefault(model => model.YearMonth == currentDate.ToString("yyyyMM"));
+                    if (budget != null) totalBudget += (decimal) budget.Amount / daysInMonth * days;
+                    else
+                    {
+                        totalBudget += 0;
+                    }
                 }
 
                 currentDate = currentDate.AddMonths(1);
